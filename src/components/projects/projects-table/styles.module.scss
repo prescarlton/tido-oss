@@ -1,0 +1,72 @@
+.table {
+  & .tableHeader {
+    height: rem(32px);
+
+    @include dark {
+      border-bottom: 1px solid $mantine-color-dark-6;
+    }
+
+    @include light {
+      border-bottom: 1px solid $mantine-color-gray-1;
+    }
+
+    & .tableCell {
+      &:first-of-type {
+        padding-left: $mantine-spacing-xl;
+      }
+    }
+  }
+
+  & .tableBody {
+    & a {
+      text-decoration: none;
+      color: unset;
+    }
+
+    & .tableRow {
+      height: rem(48px);
+
+      .favoriteIcon {
+        visibility: hidden;
+      }
+
+      &:hover {
+        .favoriteIcon {
+          visibility: visible;
+        }
+      }
+
+      @include dark {
+        border-bottom: 1px solid $mantine-color-dark-6;
+      }
+
+      @include light {
+        border-bottom: 1px solid $mantine-color-gray-1;
+      }
+
+      &:hover {
+        @include light {
+          background-color: $mantine-color-gray-0;
+        }
+
+        @include dark {
+          background-color: $mantine-color-gray-0;
+        }
+      }
+
+      & .tableCell {
+        &:first-of-type {
+          padding-left: $mantine-spacing-xl;
+          color: $mantine-color-text;
+        }
+      }
+    }
+  }
+
+  .projectIcon {
+    width: rem(16px);
+    height: rem(16px);
+    border-radius: $mantine-radius-xs;
+    background-color: $mantine-color-gray-4;
+  }
+}
