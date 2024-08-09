@@ -12,7 +12,7 @@ export default async function ProjectsPage() {
     <Flex direction="column">
       <PageHeader
         title="Projects"
-        action={
+        secondaryActions={
           <Button size="xs" leftSection={<Plus size={14} />} variant="subtle">
             Create Project
           </Button>

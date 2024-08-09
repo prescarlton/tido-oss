@@ -10,10 +10,10 @@ interface Breadcrumb {
 }
 
 interface PageHeaderProps {
-  title?: string
-  breadcrumbs?: Breadcrumb[]
   primaryActions?: ReactNode
   secondaryActions?: ReactNode
+  title?: string
+  breadcrumbs?: Breadcrumb[]
 }
 
 export default function PageHeader({
@@ -39,8 +39,7 @@ export default function PageHeader({
                   href={b.href}
                   key={b.href}
                   size="sm"
-                  fw="bold"
-                  c="dimmed"
+                  className={classes.link}
                 >
                   {b.title}
                 </Anchor>

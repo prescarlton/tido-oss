@@ -2,12 +2,12 @@
   & .tableHeader {
     height: rem(32px);
 
-    @include dark {
-      border-bottom: 1px solid $mantine-color-dark-6;
-    }
-
     @include light {
       border-bottom: 1px solid $mantine-color-gray-1;
+    }
+
+    @include dark {
+      border-bottom: 1px solid $mantine-color-dark-6;
     }
 
     & .tableCell {
@@ -36,22 +36,17 @@
         }
       }
 
-      @include dark {
-        border-bottom: 1px solid $mantine-color-dark-6;
-      }
-
       @include light {
         border-bottom: 1px solid $mantine-color-gray-1;
       }
 
-      &:hover {
-        @include light {
-          background-color: $mantine-color-gray-0;
-        }
+      @include dark {
+        border-bottom: 1px solid $mantine-color-dark-6;
+      }
 
-        @include dark {
-          background-color: $mantine-color-gray-0;
-        }
+      &:hover {
+        background-color: light-dark($mantine-color-gray-0,
+            $mantine-color-dark-6 );
       }
 
       & .tableCell {

@@ -1,0 +1,15 @@
+.tab {
+  background-color: transparent;
+  color: light-dark($mantine-color-dark-text, $mantine-color-gray-text);
+
+  &:hover {
+    background-color: light-dark($mantine-color-dark-light,
+        $mantine-color-gray-light );
+    color: light-dark($mantine-color-dark-text, $mantine-color-gray-text);
+  }
+
+  &[data-active='true'] {
+    background-color: light-dark($mantine-color-dark-light,
+        $mantine-color-gray-light );
+  }
+}

@@ -4,6 +4,9 @@
   padding: 0 var(--mantine-spacing-xl);
   height: rem(40px);
 
-  border-bottom: 1px solid
-    light-dark($mantine-color-gray-1, $mantine-color-dark-6);
+  border-bottom: 1px solid light-dark($mantine-color-gray-1, $mantine-color-dark-6);
+
+  .link {
+    color: light-dark($mantine-color-dark-text, $mantine-color-text);
+  }
 }

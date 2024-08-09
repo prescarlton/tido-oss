@@ -10,7 +10,7 @@ const ProjectFilters = () => {
           leftSection={<ListFilter size={16} />}
           size="xs"
           variant="subtle"
-          color="black"
+          color="gray"
           fw="normal"
         >
           Filters

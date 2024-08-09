@@ -20,11 +20,9 @@ export default async function ProjectDetails({ slug }: ProjectDetailsProps) {
             <Text>Resources</Text>
             <Button
               variant="subtle"
-              c="dimmed"
+              color="gray"
               leftSection={<IconPlus size={12} />}
-              fw="normal"
-              size="sm"
-              px={4}
+              size="xs"
             >
               Add a Resource
             </Button>
