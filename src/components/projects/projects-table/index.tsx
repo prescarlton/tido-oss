@@ -17,7 +17,7 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
             <Text size="xs">Name</Text>
           </Box>
           <Box className={classes.tableCell} flex={1}>
-            <Text size="xs">Slug</Text>
+            <Text size="xs">Code</Text>
           </Box>
           <Box className={classes.tableCell} flex={1}>
             <Text size="xs">Key</Text>
@@ -25,7 +25,7 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
         </Group>
         <Flex className={classes.tableBody} direction="column">
           {projects.map((project) => (
-            <Link href={`/projects/${project.slug}`} key={project.id}>
+            <Link href={`/projects/${project.code}`} key={project.id}>
               <Group key={project.id} className={classes.tableRow}>
                 <Box className={classes.tableCell} flex={3}>
                   <Group gap="sm">
@@ -40,7 +40,7 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                   </Group>
                 </Box>
                 <Box className={classes.tableCell} flex={1}>
-                  <Text size="sm">{project.slug}</Text>
+                  <Text size="sm">{project.code}</Text>
                 </Box>
                 <Box className={classes.tableCell} flex={1}>
                   <Text size="sm">PROJ</Text>

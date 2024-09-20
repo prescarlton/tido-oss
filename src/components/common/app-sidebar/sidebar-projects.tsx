@@ -8,8 +8,8 @@ const SidebarProjects = async () => {
   const projects = await listProjects()
   return (
     <AppShellSection className={styles.section}>
-      <Text size="sm" c="dimmed" className={styles.sectionHeader}>
-        Projects
+      <Text size="xs" fw="bold" c="dimmed" className={styles.sectionHeader}>
+        PROJECTS
       </Text>
       <Box className={styles.sectionItemList}>
         {projects.map((project) => (

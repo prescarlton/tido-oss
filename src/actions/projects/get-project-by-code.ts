@@ -3,10 +3,10 @@
 import { prisma } from '@/prismaClient'
 import { redirect } from 'next/navigation'
 
-export default async function getProjectBySlug(slug: string) {
+export default async function getProjectByCode(code: string) {
   const project = await prisma.project.findFirst({
     where: {
-      slug,
+      code: code.toUpperCase(),
     },
   })
   if (!project) {

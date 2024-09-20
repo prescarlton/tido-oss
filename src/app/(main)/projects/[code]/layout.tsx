@@ -1,17 +1,16 @@
-import getProjectBySlug from '@/actions/projects/get-project-by-slug'
+import getProjectByCode from '@/actions/projects/get-project-by-code'
 import PageHeader from '@/components/common/page-header'
 import ProjectTabs from '@/components/projects/project-tabs'
+import { ReactNode } from 'react'
 
-interface ProjectItemsPageProps {
+interface LayoutProps {
   params: {
-    slug: string
+    code: string
   }
+  children: ReactNode
 }
-
-export default async function ProjectItemsPage({
-  params,
-}: ProjectItemsPageProps) {
-  const project = await getProjectBySlug(params.slug)
+export default async function Layout({ params, children }: LayoutProps) {
+  const project = await getProjectByCode(params.code)
 
   const breadcrumbs = [
     {
@@ -20,14 +19,13 @@ export default async function ProjectItemsPage({
     },
     {
       title: project.name,
-      href: `/projects/${project.slug}`,
+      href: `/projects/${project.code}`,
     },
   ]
-
   return (
     <div>
       <PageHeader breadcrumbs={breadcrumbs} primaryActions={<ProjectTabs />} />
-      items
+      {children}
     </div>
   )
 }

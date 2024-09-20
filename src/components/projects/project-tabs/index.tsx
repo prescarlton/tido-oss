@@ -5,38 +5,41 @@ import { useParams, usePathname } from 'next/navigation'
 import classes from './styles.module.scss'
 
 export default function ProjectTabs() {
-  const { slug } = useParams()
+  const { code } = useParams()
   const pathname = usePathname()
+
+  const tabs = [
+    {
+      label: 'Overview',
+      active: pathname === `/projects/${code}`,
+      href: `/projects/${code}`,
+    },
+    {
+      label: 'Items',
+      active: pathname === `/projects/${code}/items`,
+      href: `/projects/${code}/items`,
+    },
+    {
+      label: 'Resources',
+      active: pathname === `/projects/${code}/resources`,
+      href: `/projects/${code}/resources`,
+    },
+  ]
 
   return (
     <Group gap={4}>
-      <Button
-        size="xs"
-        data-active={pathname === `/projects/${slug}`}
-        component={Link}
-        href={`/projects/${slug}`}
-        className={classes.tab}
-      >
-        Overview
-      </Button>
-      <Button
-        size="xs"
-        data-active={pathname === `/projects/${slug}/resources`}
-        component={Link}
-        href={`/projects/${slug}/resources`}
-        className={classes.tab}
-      >
-        Resources
-      </Button>
-      <Button
-        size="xs"
-        data-active={pathname === `/projects/${slug}/items`}
-        component={Link}
-        href={`/projects/${slug}/items`}
-        className={classes.tab}
-      >
-        Items
-      </Button>
+      {tabs.map((tab) => (
+        <Button
+          size="xs"
+          data-active={tab.active}
+          component={Link}
+          href={tab.href}
+          className={classes.tab}
+          key={tab.label}
+        >
+          {tab.label}
+        </Button>
+      ))}
     </Group>
   )
 }

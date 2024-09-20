@@ -1,13 +1,13 @@
-import getProjectBySlug from '@/actions/projects/get-project-by-slug'
+import getProjectByCode from '@/actions/projects/get-project-by-code'
 import { Button, Divider, Flex, Group, Stack, Text, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 
 interface ProjectDetailsProps {
-  slug: string
+  code: string
 }
 
-export default async function ProjectDetails({ slug }: ProjectDetailsProps) {
-  const project = await getProjectBySlug(slug)
+export default async function ProjectDetails({ code }: ProjectDetailsProps) {
+  const project = await getProjectByCode(code)
   return (
     <Flex direction="column" align="center" mt={64}>
       <Stack w="70%" gap="xl">

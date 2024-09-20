@@ -12,10 +12,10 @@ interface SidebarProjectItemProps {
 const SidebarProjectItem = ({ project }: SidebarProjectItemProps) => {
   const pathname = usePathname()
   const router = useRouter()
-  const active = pathname.includes(project.slug.toString()) || undefined
+  const active = pathname.includes(project.code.toString()) || undefined
 
   const handleClick = () => {
-    router.push(`/projects/${project.slug}`)
+    router.push(`/projects/${project.code}`)
   }
 
   return (
