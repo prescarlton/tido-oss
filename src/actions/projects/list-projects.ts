@@ -6,7 +6,7 @@ const listProjects = async () => {
   const { user } = await validateRequest()
   return await prisma.project.findMany({
     where: {
-      users: {
+      Users: {
         some: {
           userId: user?.id,
         },

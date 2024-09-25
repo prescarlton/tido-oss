@@ -1,0 +1,29 @@
+.modal {
+  padding: 0;
+  border: 1px solid $mantine-color-default-border;
+  border-radius: $mantine-radius-md;
+
+  .body {
+    padding: 0;
+    height: rem(300);
+  }
+
+  .innerContent {
+    padding: $mantine-spacing-md;
+
+    & .input {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+      padding: 0;
+      height: auto;
+      min-height: 0;
+      line-height: unset;
+    }
+  }
+
+  .footer {
+    border-top: 1px solid $mantine-color-default-border;
+
+    padding: $mantine-spacing-sm;
+  }
+}

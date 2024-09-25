@@ -69,11 +69,14 @@ model ProjectUser {
 
 model Item {
   id          Int    @id @default(autoincrement())
+  code        Int
   name        String
   description String
   projectId   Int    @map("project_id")
+  statusId    Int    @map("status_id")
 
-  Project Project @relation(fields: [projectId], references: [id])
+  Status  ItemStatus @relation(fields: [statusId], references: [id])
+  Project Project    @relation(fields: [projectId], references: [id])
 
   @@map("items")
 }
@@ -86,6 +89,7 @@ model ItemStatus {
   default     Boolean         @default(false)
   projectId   Int             @map("project_id")
 
+  Items   Item[]
   Project Project @relation(fields: [projectId], references: [id])
 
   @@map("item_statuses")
