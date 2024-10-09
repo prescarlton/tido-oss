@@ -1,9 +1,6 @@
-import '@mantine/core/styles.css'
 import { Inter } from 'next/font/google'
 
 import type { Metadata } from 'next'
-import { ColorSchemeScript, MantineProvider } from '@mantine/core'
-import { theme } from './theme'
 
 export const metadata: Metadata = {
   title: 'Tido',
@@ -18,15 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <head>
-        <ColorSchemeScript />
-      </head>
       <body
         style={{
           overscrollBehaviorY: 'none',
         }}
       >
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        {children}
       </body>
     </html>
   )

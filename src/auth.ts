@@ -1,43 +1,38 @@
-import { PrismaAdapter } from '@lucia-auth/adapter-prisma'
-import { Lucia } from 'lucia'
-import { prisma } from './prismaClient'
-import { cache } from 'react'
-import { Session } from '@prisma/client'
+import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle'
+import { Lucia, Session, TimeSpan } from 'lucia'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { cache } from 'react'
 
-const adapter = new PrismaAdapter(prisma.session, prisma.user)
+import db from '@/db'
+import { session, user } from '@/db/schema'
+
+const adapter = new DrizzlePostgreSQLAdapter(db, session, user)
 
 export const lucia = new Lucia(adapter, {
+  sessionExpiresIn: new TimeSpan(1, 'w'),
   sessionCookie: {
-    // this sets cookies with super long expiration
-    // since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages
-    expires: false,
-    attributes: {
-      // set to `true` when using HTTPS
-      secure: process.env.NODE_ENV === 'production',
-    },
+    name: '__dashboard_session',
   },
-  getUserAttributes: (attributes) => {
+  getUserAttributes: (attr) => {
     return {
-      // attributes has the type of DatabaseUserAttributes
-      username: attributes.username,
+      name: attr.name,
+      email: attr.email,
+      username: attr.username,
     }
   },
 })
 
 export const validateRequest = cache(
   async (): Promise<
-    | { user: { id: number; username: string }; session: Session }
+    | { user: DatabaseUserAttributes; session: Session }
     | { user: null; session: null }
   > => {
     const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
     if (!sessionId) {
-      return redirect('/signin')
-      // return {
-      //   user: null,
-      //   session: null,
-      // }
+      return {
+        user: null,
+        session: null,
+      }
     }
 
     const result = await lucia.validateSession(sessionId)
@@ -59,20 +54,24 @@ export const validateRequest = cache(
           sessionCookie.attributes,
         )
       }
-    } catch {}
+    } catch (e) {
+      console.error(e)
+    }
     return result
   },
 )
 
-// IMPORTANT!
 declare module 'lucia' {
   interface Register {
     Lucia: typeof lucia
-    UserId: number
+    UserId: string
     DatabaseUserAttributes: DatabaseUserAttributes
   }
 }
 
 interface DatabaseUserAttributes {
+  id: string
   username: string
+  email: string
+  name: string
 }
