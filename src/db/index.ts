@@ -1,16 +1,36 @@
-import { PostgresJsDatabase, drizzle } from 'drizzle-orm/postgres-js'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import { type PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-import * as schema from '@/db/schema'
 
-const databaseUrl = process.env.DATABASE_URL!
+import * as schema from './schema' // where our db tables are defined
+import { Resource } from 'sst'
 
-export const connection = postgres(databaseUrl)
+declare global {
+  // eslint-disable-next-line no-var -- only var works here
+  var db: PostgresJsDatabase<typeof schema> | undefined
+}
 
-declare const globalThis: {
-  db: PostgresJsDatabase<typeof schema>
-} & typeof global
+let db: PostgresJsDatabase<typeof schema>
+const databaseUrl = Resource.DatabaseUrl.value
+if (process.env.NODE_ENV === 'production') {
+  const client = postgres(databaseUrl)
 
-const db = globalThis.db ?? drizzle(connection, { schema })
+  db = drizzle(client, {
+    schema,
+  })
+} else {
+  if (!global.db) {
+    const client = postgres(databaseUrl)
 
-export type db = typeof db
+    global.db = drizzle(client, {
+      schema,
+    })
+  }
+
+  db = global.db
+}
+
+type DbInstance = typeof db
+
 export default db
+export type { DbInstance }

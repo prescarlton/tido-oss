@@ -11,11 +11,12 @@ const adapter = new DrizzlePostgreSQLAdapter(db, session, user)
 export const lucia = new Lucia(adapter, {
   sessionExpiresIn: new TimeSpan(1, 'w'),
   sessionCookie: {
-    name: '__dashboard_session',
+    name: '__session',
   },
   getUserAttributes: (attr) => {
     return {
-      name: attr.name,
+      firstName: attr.firstName,
+      lastName: attr.lastName,
       email: attr.email,
       username: attr.username,
     }
@@ -72,6 +73,7 @@ declare module 'lucia' {
 interface DatabaseUserAttributes {
   id: string
   username: string
+  firstName: string
+  lastName: string
   email: string
-  name: string
 }

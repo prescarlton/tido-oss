@@ -47,10 +47,7 @@ export default function SignInPage() {
               </Alert>
             )}
             <CardTitle className="text-2xl font-bold text-center">
-              <div className="flex flex-col items-center gap-2">
-                <Image src="/ct-logo.png" width={48} height={48} alt="Logo" />
-                Sign in
-              </div>
+              <div className="flex flex-col items-center gap-2">Sign in</div>
             </CardTitle>
             <CardDescription className="text-center">
               Welcome back!
