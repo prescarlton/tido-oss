@@ -1,6 +1,6 @@
 import { boolean, pgEnum, pgTable, varchar } from 'drizzle-orm/pg-core'
 import { enumToPgEnum } from '../util'
-import { ItemStatusGroup } from '@/types/item-status-group'
+import { ItemStatusGroup } from '@/types'
 import { project } from '.'
 export const itemStatusGroup = pgEnum(
   'item_status_group',

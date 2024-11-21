@@ -1,28 +1,28 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from '@/components/ui/breadcrumb'
-import { Separator } from '@/components/ui/separator'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import Page from '@/components/common/page'
+import getUser from '@/actions/auth/get-user'
+import OpenTasks from '@/components/home/open-tasks'
+import QuickActions from '@/components/home/quick-actions'
+import RecentActivity from '@/components/home/recent-activity'
+import listMyProjects from '@/actions/projects/list-my-projects'
+import GetStartedDialog from '@/components/home/get-started-dialog'
 
-export default function Page() {
+export default async function PersonalizedHomepage() {
+  const user = await getUser()
+  const projects = await listMyProjects()
+
   return (
-    <>
-      <header className="flex h-16 shrink-0 items-center gap-2">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+    <Page>
+      <div className="p-6 space-y-6">
+        <h1 className="text-3xl font-bold text-gray-900">
+          Welcome back, {user?.firstName}!
+        </h1>
+        <QuickActions />
+        <div className="flex gap-6">
+          <OpenTasks />
+          <RecentActivity />
         </div>
-      </header>
-    </>
+      </div>
+      {projects.length === 0 && <GetStartedDialog />}
+    </Page>
   )
 }

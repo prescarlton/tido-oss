@@ -1,19 +1,5 @@
-'use client'
+import { Command, LifeBuoy, Send } from 'lucide-react'
 
-import * as React from 'react'
-import {
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  SquareTerminal,
-} from 'lucide-react'
-
-import { NavMain } from '@/components/nav-main'
 import { NavProjects } from '@/components/nav-projects'
 import { NavSecondary } from '@/components/nav-secondary'
 import { NavUser } from '@/components/nav-user'
@@ -26,31 +12,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { useSession } from '@/providers/session-provider'
+import getUser from '@/actions/auth/get-user'
+import listMyProjects from '@/actions/projects/list-my-projects'
 
 const data = {
-  navMain: [
-    {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
-    },
-  ],
   navSecondary: [
     {
       title: 'Support',
@@ -63,37 +28,13 @@ const data = {
       icon: Send,
     },
   ],
-  projects: [
-    {
-      name: 'Tido',
-      url: '#',
-      icon: Frame,
-    },
-    {
-      name: 'Sharq',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Portfolio',
-      url: '#',
-      icon: Map,
-    },
-    {
-      name: 'Phrased',
-      url: '#',
-      icon: Bot,
-    },
-  ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useSession()
-  // there should always be a user, but just in case:
-  if (!user) return
-
+export async function AppSidebar() {
+  const user = await getUser()
+  const projects = await listMyProjects()
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -111,8 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavProjects projects={projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

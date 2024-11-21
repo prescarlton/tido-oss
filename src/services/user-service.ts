@@ -1,31 +1,18 @@
-import type { db } from '@/db'
-import { user as UserTable } from '@/db/schema'
-import { takeUnique } from '@/db/util'
-import { eq } from 'drizzle-orm'
+import { UserRepository } from '@/repositories/user-repository'
 export function createUserService({
-  db,
-  user,
+  userRepository,
 }: {
-  db: db
-  user: typeof UserTable
+  userRepository: UserRepository
 }) {
   return {
-    getUserById: async (id: string) => {
-      return db
-        .selectDistinct()
-        .from(user)
-        .where(eq(user.id, id))
-        .then(takeUnique)
+    getUserById: (id: string) => {
+      return userRepository.getUserById(id)
     },
-    getUserByUsername: async (username: string) => {
-      return db
-        .selectDistinct()
-        .from(user)
-        .where(eq(user.username, username))
-        .then(takeUnique)
+    getUserByUsername: (username: string) => {
+      return userRepository.getUserByUsername(username)
     },
     listUsers: async () => {
-      return db.select().from(user)
+      return userRepository.listUsers()
     },
   }
 }

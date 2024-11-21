@@ -16,3 +16,5 @@ const item = pgTable('items', {
 })
 
 export default item
+
+export type ItemTable = typeof item

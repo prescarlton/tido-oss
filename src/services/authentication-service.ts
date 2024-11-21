@@ -1,4 +1,4 @@
-import type { db } from '@/db'
+import type { DbInstance } from '@/db'
 import { session as SessionTable } from '@/db/schema'
 import { UserService } from '.'
 import { verify } from '@node-rs/argon2'
@@ -10,7 +10,7 @@ export function createAuthenticationService({
   session,
   userService,
 }: {
-  db: db
+  db: DbInstance
   session: typeof SessionTable
   userService: UserService
 }) {
